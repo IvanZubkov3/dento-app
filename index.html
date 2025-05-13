@@ -44,7 +44,49 @@
             }
         }
     </style>
+    <style>
+        /* Overlay that fades out */
+        #video-fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 2s ease-in-out;
+        }
 
+        body.video-ready #video-fade-overlay {
+            opacity: 0;
+        }
+    </style>
+    <style>
+        .fade-after-video {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transition-delay: 1s;
+        }
+
+        body.video-ready .fade-after-video {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        window.addEventListener("load", () => {
+            const checkYT = setInterval(() => {
+                const ytFrame = document.querySelector('iframe[src*="youtube.com"]');
+                if (ytFrame && ytFrame.contentWindow) {
+                    document.body.classList.add("video-ready");
+                    clearInterval(checkYT);
+                }
+            }, 60); // Check every 50ms
+        });
+    </script>
 
 
 
@@ -93,8 +135,8 @@
         </nav>
     </section>
 
-    <section data-bs-version="5.1" class="header18 cid-uFObdqPG2e mbr-fullscreen" data-bg-video="https://www.youtube.com/watch?v=48RYNljzVow" id="hero-16-uFObdqPG2e">
-
+    <section data-bs-version="5.1" class="header18 cid-uFObdqPG2e mbr-fullscreen" data-bg-video="https://youtu.be/q42zZnFpJ_Q?autoplay=1&mute=1&controls=0&showinfo=0&modestbranding=1&loop=1&playlist=q42zZnFpJ_Q" id="hero-16-uFObdqPG2e">
+        <div id="video-fade-overlay"></div>
 
         <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(0, 0, 0);"></div>
         <div class="container-fluid">
@@ -102,7 +144,8 @@
                 <div class="content-wrap col-12 col-md-12">
                     <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-2">&nbsp;&nbsp;</h1>
 
-                    <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">Our goal is your success.</p>
+                    <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7 fade-after-video">Our goal is your success.</p>
+
 
                 </div>
             </div>
