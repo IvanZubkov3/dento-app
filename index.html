@@ -45,6 +45,25 @@
         }
     </style>
     <style>
+        /* Hide initial YouTube spinner on iframe load */
+        .youtube-placeholder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background-color: #000;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        body.video-ready .youtube-placeholder {
+            opacity: 0;
+        }
+    </style>
+    <style>
         /* Overlay that fades out */
         #video-fade-overlay {
             position: fixed;
@@ -76,23 +95,94 @@
             transform: translateY(0);
         }
     </style>
+    <style>
+        /* HEADER fade-in (starts invisible) */
+        #menu-5-uFObdqOt7t {
+            opacity: 0;
+            pointer-events: none;
+            will-change: opacity;
+            transition: opacity 1s ease-in-out;
+        }
+
+        body.header-ready #menu-5-uFObdqOt7t {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* VIDEO fade-in overlay */
+        #video-fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 2.2s ease-in-out;
+        }
+
+        body.video-ready #video-fade-overlay {
+            opacity: 0;
+        }
+
+        /* SLOGAN fade-in after video */
+        .fade-after-video {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transition-delay: 0.5s;
+        }
+
+        body.video-ready .fade-after-video {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+
     <script>
         window.addEventListener("load", () => {
-            const checkYT = setInterval(() => {
-                const ytFrame = document.querySelector('iframe[src*="youtube.com"]');
-                if (ytFrame && ytFrame.contentWindow) {
-                    document.body.classList.add("video-ready");
-                    clearInterval(checkYT);
-                }
-            }, 60); // Check every 50ms
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    document.body.classList.add("header-ready");
+
+                    // Start video fade AFTER header is fully visible
+                    setTimeout(() => {
+                        document.body.classList.add("video-ready");
+                    }, 100); // fine timing as-is
+                }, 50); // slight delay helps avoid layout jank
+            });
         });
     </script>
+
+    <style>
+        /* By default: disable cursor text (|) and selection */
+        body * {
+            cursor: default;
+            user-select: none;
+        }
+
+        /* Allow pointer and selection for interactive elements */
+        a, button, input, textarea, select, label {
+            cursor: pointer;
+            user-select: auto;
+        }
+    </style>
+
+
+
+
+
+
+
 
 
 
 </head>
 <body>
-
+    <div class="youtube-placeholder"></div>
     <section data-bs-version="5.1" class="menu menu2 cid-uFObdqOt7t" once="menu" id="menu-5-uFObdqOt7t">
 
 
@@ -166,10 +256,10 @@
                     <h5 class="mbr-section-subtitle mbr-fonts-style align-center mb-0 mt-4 display-7">With more than seven years of experience in the dental industry, our New York-based company is passionate about helping dental practices thrive. We provide individually tailored services, leveraging our expertise to ensure your practice receives the best possible support.&nbsp;</h5>
                 </div>
             </div>
-           
-                    </div>
-                    
-        
+
+        </div>
+
+
     </section>
 
     <section data-bs-version="5.1" class="features5 cid-uFOdpnmCVO" id="features05-1">
