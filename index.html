@@ -285,6 +285,45 @@
         }
     </style>
 
+
+    <style>
+        /* Fully disable video UI overlays on all mobile browsers */
+        video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+            -webkit-appearance: none;
+        }
+
+        video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+
+        video::-webkit-media-controls-panel {
+            display: none !important;
+        }
+
+        #bg-video {
+            pointer-events: none !important;
+        }
+    </style>
+
+
+    <style>
+        @media (max-width: 768px) {
+            .navbar-caption.text-black.text-center {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                width: 100%;
+            }
+        }
+    </style>
+
 </head>
 <body style=";background-color:#000;">
     <div id="black-screen-blocker" style="
