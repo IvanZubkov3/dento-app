@@ -188,45 +188,21 @@
             pointer-events: none;
         }
     </style>
-    <style>
-        /* Hide default mobile play button */
-        #bg-video::-webkit-media-controls {
-            display: none !important;
-        }
-
-        #bg-video::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
-
-        #bg-video::-webkit-media-controls-panel {
-            display: none !important;
-        }
-
-        #bg-video {
-            pointer-events: none !important; /* No user interaction */
-        }
-    </style>
-
-
     @media (max-width: 768px) {
     #bg-video {
-    display: block !important;
+    display: none;
     }
 
     body::before {
-    display: none !important;
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('assets/images/bg-fallback.jpg') no-repeat center center / cover;
+    z-index: -1;
     }
     }
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const video = document.getElementById("bg-video");
-            video.addEventListener('canplaythrough', () => {
-                document.body.classList.add("video-ready");
-                video.play(); // ensure it starts even if autoplay fails
-            });
-        });
-    </script>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.getElementById("contact-form");
@@ -289,6 +265,26 @@
             background-color: #000 !important;
         }
     </style>
+
+    <style>
+        /* Hide default mobile play button */
+        #bg-video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        #bg-video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+
+        #bg-video::-webkit-media-controls-panel {
+            display: none !important;
+        }
+
+        #bg-video {
+            pointer-events: none !important; /* No user interaction */
+        }
+    </style>
+
 </head>
 <body style=";background-color:#000;">
     <div id="black-screen-blocker" style="
@@ -302,18 +298,20 @@
     transition: opacity 1s ease-in-out;
 "></div>
     <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden;">
+
         <video id="bg-video"
                autoplay
                muted
                loop
                playsinline
-               preload="auto"
                poster="assets/images/bg-preview.jpg"
+               preload="auto"
                style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; pointer-events: none;">
             <source src="assets/videos/bg.webm" type="video/webm" />
             <source src="assets/videos/bg.mp4" type="video/mp4" />
             Your browser does not support the video tag.
         </video>
+
         <div class="warm-overlay" style="
     position: fixed;
     top: 0;
@@ -639,5 +637,16 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById("bg-video");
+
+            if (video) {
+                video.play();
+            }
+        });
+    </script>
+
 </body>
 </html>
