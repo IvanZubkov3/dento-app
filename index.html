@@ -189,39 +189,7 @@
         }
     </style>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("contact-form");
-            const successMsg = document.querySelector("[data-form-alert]");
-            const errorMsg = document.querySelector("[data-form-alert-danger]");
 
-            form.addEventListener("submit", async function (e) {
-                e.preventDefault(); // prevent default page reload
-
-                const formData = new FormData(form);
-
-                try {
-                    const response = await fetch(form.action, {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            Accept: "application/json"
-                        }
-                    });
-
-                    if (response.ok) {
-                        form.reset();
-                        if (successMsg) successMsg.removeAttribute("hidden");
-                        if (errorMsg) errorMsg.setAttribute("hidden", true);
-                    } else {
-                        if (errorMsg) errorMsg.removeAttribute("hidden");
-                    }
-                } catch (err) {
-                    if (errorMsg) errorMsg.removeAttribute("hidden");
-                }
-            });
-        });
-    </script>
     <style>
         .custom-popup-success {
             position: fixed;
@@ -268,7 +236,7 @@
     <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden; z-index: 0;">
 
         <!-- Background image fallback -->
-        <div id="video-poster" style="display:block; background: url('assets/images/bg-preview.jpg') no-repeat center center / cover;
+        <div id="video-poster" style="display:block; opacity:1; transition: opacity 1s ease-in-out; background: url('assets/images/bg-preview.jpg') no-repeat center center / cover;
         position: fixed;
         top: 0;
         left: 0;
@@ -547,23 +515,7 @@
     <script src="assets/dropdown/js/navbar-dropdown.js"></script>
     <script src="assets/vimeoplayer/player.js"></script>
     <script src="assets/theme/js/script.js?v=2"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const allLinks = document.querySelectorAll(".navbar-nav .nav-link, .navbar-buttons a");
-            const navbarCollapse = document.querySelector(".navbar-collapse");
 
-            allLinks.forEach(function (link) {
-                link.addEventListener("click", function () {
-                    if (navbarCollapse.classList.contains("show")) {
-                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-                            toggle: true
-                        });
-                        bsCollapse.hide();
-                    }
-                });
-            });
-        });
-    </script>
     <style>
         #features019-6 {
             margin-bottom: 0 !important;
@@ -575,51 +527,7 @@
             padding-top: 0px !important; /* Adjust lower if needed */
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("contact-form");
-            const errorMsg = document.querySelector("[data-form-alert-danger]");
 
-            form.addEventListener("submit", async function (e) {
-                e.preventDefault(); // prevent page reload
-
-                const formData = new FormData(form);
-
-                try {
-                    const response = await fetch(form.action, {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            Accept: "application/json"
-                        }
-                    });
-
-                    if (response.ok) {
-                        form.reset();
-
-                        const popup = document.getElementById("popup-success");
-                        if (popup) {
-                            popup.removeAttribute("hidden");
-                            popup.classList.add("show");
-
-                            setTimeout(() => {
-                                popup.classList.remove("show");
-                                setTimeout(() => {
-                                    popup.setAttribute("hidden", true);
-                                }, 500); // fade-out time
-                            }, 2000); // visible for 2 seconds
-                        }
-
-                        if (errorMsg) errorMsg.setAttribute("hidden", true);
-                    } else {
-                        if (errorMsg) errorMsg.removeAttribute("hidden");
-                    }
-                } catch (err) {
-                    if (errorMsg) errorMsg.removeAttribute("hidden");
-                }
-            });
-        });
-    </script>
     <script>
         window.addEventListener("load", function () {
             const blocker = document.getElementById("black-screen-blocker");
@@ -630,36 +538,13 @@
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const video = document.getElementById("bg-video");
-            const poster = document.getElementById("video-poster");
-
-            if (video) {
-                video.addEventListener('canplaythrough', () => {
-                    if (poster) poster.style.display = 'none';
-                    video.style.display = 'block';
-                    video.play();
-                });
-            }
-        });
-    </script>
 
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const video = document.getElementById("bg-video");
-            const poster = document.getElementById("video-poster");
 
-            if (video) {
-                video.addEventListener('canplaythrough', () => {
-                    if (poster) poster.style.display = 'none';
-                    video.style.display = 'block';
-                    video.play();
-                });
-            }
-        });
-    </script>
+
+
+
+
 
 
     <script>
@@ -671,15 +556,29 @@
 
             const tryAutoplay = video.play();
 
+            function hidePoster() {
+                if (poster) {
+                    poster.style.opacity = "0";
+                    setTimeout(() => {
+                        poster.style.display = "none";
+                    }, 1000);
+                }
+            }
+
             if (tryAutoplay !== undefined) {
                 tryAutoplay.then(() => {
-                    // Autoplay success
                     video.style.display = "block";
-                    if (poster) poster.style.display = "none";
+                    hidePoster();
                 }).catch(() => {
-                    // Autoplay blocked (likely low power mode or data saving)
-                    video.style.display = "none";
-                    if (poster) poster.style.display = "block";
+                    video.addEventListener("canplaythrough", () => {
+                        video.style.display = "block";
+                        hidePoster();
+                    });
+                });
+            } else {
+                video.addEventListener("canplaythrough", () => {
+                    video.style.display = "block";
+                    hidePoster();
                 });
             }
         });
