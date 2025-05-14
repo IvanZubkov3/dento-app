@@ -188,6 +188,15 @@
             pointer-events: none;
         }
     </style>
+    @media (max-width: 768px) {
+    #bg-video {
+    display: block !important;
+    }
+
+    body::before {
+    display: none !important;
+    }
+    }
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.getElementById("contact-form");
