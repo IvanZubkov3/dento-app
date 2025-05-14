@@ -188,6 +188,8 @@
             pointer-events: none;
         }
     </style>
+
+
     @media (max-width: 768px) {
     #bg-video {
     display: block !important;
@@ -197,6 +199,16 @@
     display: none !important;
     }
     }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById("bg-video");
+            video.addEventListener('canplaythrough', () => {
+                document.body.classList.add("video-ready");
+                video.play(); // ensure it starts even if autoplay fails
+            });
+        });
+    </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const form = document.getElementById("contact-form");
@@ -272,7 +284,13 @@
     transition: opacity 1s ease-in-out;
 "></div>
     <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden;">
-        <video id="bg-video" autoplay muted loop playsinline preload="auto"
+        <video id="bg-video"
+               autoplay
+               muted
+               loop
+               playsinline
+               preload="auto"
+               poster="assets/images/bg-preview.jpg"
                style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; pointer-events: none;">
             <source src="assets/videos/bg.webm" type="video/webm" />
             <source src="assets/videos/bg.mp4" type="video/mp4" />
