@@ -265,6 +265,25 @@
             background-color: #000 !important;
         }
     </style>
+
+    <style>
+        @media (max-width: 768px) {
+            #hero-content {
+                position: absolute !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                text-align: center !important;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+                #hero-content p {
+                    font-size: 1.5rem !important;
+                }
+        }
+    </style>
+
 </head>
 <body style=";background-color:#000;">
     <div id="black-screen-blocker" style="
@@ -277,54 +296,64 @@
     z-index: 9999;
     transition: opacity 1s ease-in-out;
 "></div>
+
+
     <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden;">
 
-        <!-- Poster fallback initially shown -->
-        <div id="video-poster" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: url('assets/images/bg-preview.jpg') no-repeat center center / cover;
-    z-index: 0;"></div>
+        <!-- Background image fallback -->
+        <div id="video-poster" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: url('assets/images/bg-preview.jpg') no-repeat center center / cover;
+        z-index: 0;"></div>
 
-        <!-- Real video hidden initially -->
+        <!-- Background video (hidden initially) -->
         <video id="bg-video"
                muted
                autoplay
                loop
                playsinline
                preload="auto"
-               style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; pointer-events: none;">
+               style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                  object-fit: cover; z-index: 0; pointer-events: none;">
             <source src="assets/videos/bg.webm" type="video/webm" />
             <source src="assets/videos/bg.mp4" type="video/mp4" />
         </video>
 
+        <!-- Warm amber overlay -->
         <div class="warm-overlay" style="
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(35, 25, 10, 0.35); /* warm soft amber */
-    z-index: 0.5;
-    pointer-events: none;
-    mix-blend-mode: multiply;
-"></div>
-
-        <!-- ✅ New warm filter overlay -->
-        <div class="content" style="
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    color: white;">
-            <p style="font-size:2rem;">Our goal is your success.</p>
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(35, 25, 10, 0.35);
+      z-index: 1;
+      pointer-events: none;
+      mix-blend-mode: multiply;">
         </div>
+
+
+        <!-- Perfectly centered slogan within hero section -->
+        <div id="hero-content" style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        color: white;
+        text-align: center;
+        width: 100%;
+        padding: 0 20px;">
+            <p style="font-size: 2rem; margin: 0;">Our goal is your success.</p>
+        </div>
+
     </section>
+
+
     <section class="menu menu2 cid-uFObdqOt7t" data-bs-version="5.1" id="menu-5-uFObdqOt7t" once="menu">
         <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
             <div class="container">
@@ -633,6 +662,22 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById("bg-video");
+            const poster = document.getElementById("video-poster");
+
+            if (video) {
+                video.addEventListener('canplaythrough', () => {
+                    if (poster) poster.style.display = 'none';
+                    video.style.display = 'block';
+                    video.play();
+                });
+            }
+        });
+    </script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
