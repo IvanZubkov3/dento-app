@@ -188,6 +188,24 @@
             pointer-events: none;
         }
     </style>
+    <style>
+        /* Hide default mobile play button */
+        #bg-video::-webkit-media-controls {
+            display: none !important;
+        }
+
+        #bg-video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+
+        #bg-video::-webkit-media-controls-panel {
+            display: none !important;
+        }
+
+        #bg-video {
+            pointer-events: none !important; /* No user interaction */
+        }
+    </style>
 
 
     @media (max-width: 768px) {
