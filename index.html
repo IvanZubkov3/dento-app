@@ -188,7 +188,21 @@
             pointer-events: none;
         }
     </style>
+    @media (max-width: 768px) {
+    #bg-video {
+    display: none;
+    }
 
+    body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('assets/images/bg-fallback.jpg') no-repeat center center / cover;
+    z-index: -1;
+    }
+    }
 
     <style>
         .custom-popup-success {
@@ -233,10 +247,10 @@
 "></div>
 
 
-    <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden; z-index: 0;">
+    <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden;">
 
         <!-- Background image fallback -->
-        <div id="video-poster" style="display:block; opacity:1; transition: opacity 1s ease-in-out; background: url('assets/images/bg-preview.jpg') no-repeat center center / cover;
+        <div id="video-poster" style="display:block; z-index:1;
         position: fixed;
         top: 0;
         left: 0;
@@ -246,13 +260,12 @@
         z-index: 0;"></div>
 
         <!-- Background video (hidden initially) -->
-        <video id="bg-video"
-               muted
+        <video id="bg-video" style="display:block; z-index:0; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover;" muted
                autoplay
                loop
                playsinline
                preload="auto"
-               style="display:none; position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+               style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
                   object-fit: cover; z-index: 0; pointer-events: none;">
             <source src="assets/videos/bg.webm" type="video/webm" />
             <source src="assets/videos/bg.mp4" type="video/mp4" />
@@ -544,9 +557,6 @@
 
 
 
-
-
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const video = document.getElementById("bg-video");
@@ -554,32 +564,27 @@
 
             if (!video) return;
 
-            const tryAutoplay = video.play();
+            // Show JPEG first
+            if (poster) {
+                poster.style.display = "block";
+            }
 
-            function hidePoster() {
+            function switchToVideo() {
                 if (poster) {
-                    poster.style.opacity = "0";
-                    setTimeout(() => {
-                        poster.style.display = "none";
-                    }, 1000);
+                    poster.style.display = "none";
                 }
             }
 
-            if (tryAutoplay !== undefined) {
-                tryAutoplay.then(() => {
-                    video.style.display = "block";
-                    hidePoster();
+            // Attempt autoplay
+            const tryPlay = video.play();
+            if (tryPlay !== undefined) {
+                tryPlay.then(() => {
+                    switchToVideo();
                 }).catch(() => {
-                    video.addEventListener("canplaythrough", () => {
-                        video.style.display = "block";
-                        hidePoster();
-                    });
+                    video.addEventListener("canplaythrough", switchToVideo);
                 });
             } else {
-                video.addEventListener("canplaythrough", () => {
-                    video.style.display = "block";
-                    hidePoster();
-                });
+                video.addEventListener("canplaythrough", switchToVideo);
             }
         });
     </script>
