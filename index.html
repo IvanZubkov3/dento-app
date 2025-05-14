@@ -149,93 +149,7 @@
             transform: translateY(0);
         }
     </style>
-    <script>
-        window.addEventListener("load", () => {
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    document.body.classList.add("header-ready");
 
-                    // Start video fade AFTER header is fully visible
-                    setTimeout(() => {
-                        document.body.classList.add("video-ready");
-                    }, 100); // fine timing as-is
-                }, 50); // slight delay helps avoid layout jank
-            });
-        });
-    </script>
-    <style>
-        /* By default: disable cursor text (|) and selection */
-        body * {
-            cursor: default;
-            user-select: none;
-        }
-
-        /* Allow pointer and selection for interactive elements */
-        a, button, input, textarea, select, label {
-            cursor: pointer;
-            user-select: auto;
-        }
-    </style>
-    <style>
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width: 100vw;
-            min-height: 100vh;
-            object-fit: cover;
-            z-index: -1;
-            pointer-events: none;
-        }
-    </style>
-    @media (max-width: 768px) {
-    #bg-video {
-    display: none;
-    }
-
-    body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('assets/images/bg-fallback.jpg') no-repeat center center / cover;
-    z-index: -1;
-    }
-    }
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("contact-form");
-            const successMsg = document.querySelector("[data-form-alert]");
-            const errorMsg = document.querySelector("[data-form-alert-danger]");
-
-            form.addEventListener("submit", async function (e) {
-                e.preventDefault(); // prevent default page reload
-
-                const formData = new FormData(form);
-
-                try {
-                    const response = await fetch(form.action, {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            Accept: "application/json"
-                        }
-                    });
-
-                    if (response.ok) {
-                        form.reset();
-                        if (successMsg) successMsg.removeAttribute("hidden");
-                        if (errorMsg) errorMsg.setAttribute("hidden", true);
-                    } else {
-                        if (errorMsg) errorMsg.removeAttribute("hidden");
-                    }
-                } catch (err) {
-                    if (errorMsg) errorMsg.removeAttribute("hidden");
-                }
-            });
-        });
-    </script>
     <style>
         .custom-popup-success {
             position: fixed;
@@ -580,23 +494,7 @@
     <script src="assets/dropdown/js/navbar-dropdown.js"></script>
     <script src="assets/vimeoplayer/player.js"></script>
     <script src="assets/theme/js/script.js?v=2"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const allLinks = document.querySelectorAll(".navbar-nav .nav-link, .navbar-buttons a");
-            const navbarCollapse = document.querySelector(".navbar-collapse");
 
-            allLinks.forEach(function (link) {
-                link.addEventListener("click", function () {
-                    if (navbarCollapse.classList.contains("show")) {
-                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-                            toggle: true
-                        });
-                        bsCollapse.hide();
-                    }
-                });
-            });
-        });
-    </script>
     <style>
         #features019-6 {
             margin-bottom: 0 !important;
@@ -608,87 +506,34 @@
             padding-top: 0px !important; /* Adjust lower if needed */
         }
     </style>
+
+
+
+
+
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const form = document.getElementById("contact-form");
-            const errorMsg = document.querySelector("[data-form-alert-danger]");
+            const video = document.getElementById("bg-video");
+            const poster = document.getElementById("video-poster");
 
-            form.addEventListener("submit", async function (e) {
-                e.preventDefault(); // prevent page reload
+            if (!video) return;
 
-                const formData = new FormData(form);
+            // Try autoplay immediately
+            const tryAutoplay = video.play();
 
-                try {
-                    const response = await fetch(form.action, {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            Accept: "application/json"
-                        }
+            if (tryAutoplay !== undefined) {
+                tryAutoplay.then(() => {
+                    // Autoplay worked
+                    video.style.display = 'block';
+                    if (poster) poster.style.display = 'none';
+                }).catch(() => {
+                    // Autoplay failed (low-tier mode)
+                    video.addEventListener('canplaythrough', () => {
+                        video.style.display = 'block';
+                        if (poster) poster.style.display = 'none';
                     });
-
-                    if (response.ok) {
-                        form.reset();
-
-                        const popup = document.getElementById("popup-success");
-                        if (popup) {
-                            popup.removeAttribute("hidden");
-                            popup.classList.add("show");
-
-                            setTimeout(() => {
-                                popup.classList.remove("show");
-                                setTimeout(() => {
-                                    popup.setAttribute("hidden", true);
-                                }, 500); // fade-out time
-                            }, 2000); // visible for 2 seconds
-                        }
-
-                        if (errorMsg) errorMsg.setAttribute("hidden", true);
-                    } else {
-                        if (errorMsg) errorMsg.removeAttribute("hidden");
-                    }
-                } catch (err) {
-                    if (errorMsg) errorMsg.removeAttribute("hidden");
-                }
-            });
-        });
-    </script>
-    <script>
-        window.addEventListener("load", function () {
-            const blocker = document.getElementById("black-screen-blocker");
-            if (blocker) {
-                blocker.style.opacity = "0";
-                setTimeout(() => blocker.remove(), 1000);
-            }
-        });
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const video = document.getElementById("bg-video");
-            const poster = document.getElementById("video-poster");
-
-            if (video) {
-                video.addEventListener('canplaythrough', () => {
-                    if (poster) poster.style.display = 'none';
-                    video.style.display = 'block';
-                    video.play();
-                });
-            }
-        });
-    </script>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const video = document.getElementById("bg-video");
-            const poster = document.getElementById("video-poster");
-
-            if (video) {
-                video.addEventListener('canplaythrough', () => {
-                    if (poster) poster.style.display = 'none';
-                    video.style.display = 'block';
-                    video.play();
                 });
             }
         });
