@@ -265,127 +265,6 @@
             background-color: #000 !important;
         }
     </style>
-
-    <style>
-        /* Hide default mobile play button */
-        #bg-video::-webkit-media-controls {
-            display: none !important;
-        }
-
-        #bg-video::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
-
-        #bg-video::-webkit-media-controls-panel {
-            display: none !important;
-        }
-
-        #bg-video {
-            pointer-events: none !important; /* No user interaction */
-        }
-    </style>
-
-
-    <style>
-        /* Fully disable video UI overlays on all mobile browsers */
-        video::-webkit-media-controls-start-playback-button {
-            display: none !important;
-            -webkit-appearance: none;
-        }
-
-        video::-webkit-media-controls {
-            display: none !important;
-        }
-
-        video::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
-
-        video::-webkit-media-controls-panel {
-            display: none !important;
-        }
-
-        #bg-video {
-            pointer-events: none !important;
-        }
-    </style>
-
-
-    <style>
-        @media (max-width: 768px) {
-            .navbar-caption.text-black.text-center {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                width: 100%;
-            }
-        }
-    </style>
-
-
-    <style>
-        @media (max-width: 768px) {
-            .content {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                flex-direction: column;
-                text-align: center;
-                padding: 0 20px;
-                width: 100vw;
-                height: 100vh;
-            }
-
-                .content p {
-                    font-size: 1.5rem !important;
-                    line-height: 1.4 !important;
-                }
-
-            .navbar-caption.text-black.text-center {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                width: 100%;
-            }
-        }
-    </style>
-
-    <style>
-        video::-webkit-media-controls-start-playback-button {
-            display: none !important;
-            -webkit-appearance: none;
-        }
-
-        video::-webkit-media-controls {
-            display: none !important;
-        }
-
-        video::-webkit-media-controls-enclosure {
-            display: none !important;
-        }
-
-        video::-webkit-media-controls-panel {
-            display: none !important;
-        }
-
-        video::cue {
-            display: none !important;
-        }
-
-        #bg-video {
-            -webkit-touch-callout: none !important;
-            -webkit-user-select: none !important;
-            -webkit-tap-highlight-color: transparent !important;
-            user-select: none !important;
-            pointer-events: none !important;
-            object-fit: cover !important;
-        }
-    </style>
-
 </head>
 <body style=";background-color:#000;">
     <div id="black-screen-blocker" style="
@@ -400,17 +279,21 @@
 "></div>
     <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden;">
 
+        <!-- Poster fallback initially shown -->
+        <div id="video-poster" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: url('assets/images/bg-preview.jpg') no-repeat center center / cover;
+    z-index: 0;"></div>
+
+        <!-- Real video hidden initially -->
         <video id="bg-video"
-               autoplay
                muted
+               autoplay
                loop
                playsinline
-               poster="assets/images/bg-preview.jpg"
                preload="auto"
-               style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; pointer-events: none;">
+               style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; pointer-events: none;">
             <source src="assets/videos/bg.webm" type="video/webm" />
             <source src="assets/videos/bg.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
         </video>
 
         <div class="warm-overlay" style="
@@ -426,7 +309,19 @@
 "></div>
 
         <!-- ✅ New warm filter overlay -->
-        <div class="content" style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);z-index:2;text-align:center;color:white;">
+        <div class="content" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    color: white;">
             <p style="font-size:2rem;">Our goal is your success.</p>
         </div>
     </section>
@@ -742,9 +637,14 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const video = document.getElementById("bg-video");
+            const poster = document.getElementById("video-poster");
 
             if (video) {
-                video.play();
+                video.addEventListener('canplaythrough', () => {
+                    if (poster) poster.style.display = 'none';
+                    video.style.display = 'block';
+                    video.play();
+                });
             }
         });
     </script>
