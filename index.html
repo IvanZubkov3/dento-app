@@ -368,6 +368,20 @@
             padding-left: 120px !important;
         }
     </style>
+    <style>
+        /* Remove background hover effect from nav links */
+        .navbar-nav .nav-link {
+            background: none !important;
+            transition: color 0.2s ease-in-out;
+        }
+
+            /* Make text brighter on hover without background */
+            .navbar-nav .nav-link:hover {
+                color: #ffffff !important; /* or #f0f0f0 for a softer glow */
+                background: none !important;
+                text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+            }
+    </style>
 
 
 </head>
