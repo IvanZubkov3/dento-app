@@ -382,6 +382,30 @@
                 text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
             }
     </style>
+    <style>
+        /* Make hamburger icon white */
+        .navbar-toggler .hamburger span {
+            background-color: white !important;
+        }
+
+        /* Mobile menu background and text */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background-color: white !important;
+            }
+
+                .navbar-collapse .nav-link,
+                .navbar-collapse .navbar-buttons .btn {
+                    color: black !important;
+                    text-shadow: none !important;
+                }
+
+                    .navbar-collapse .nav-link:hover {
+                        color: #333 !important;
+                        background: none !important;
+                    }
+        }
+    </style>
 
 
 </head>
