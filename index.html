@@ -250,6 +250,126 @@
             background-color: #000 !important;
         }
     </style>
+    <style>
+        .navbar {
+            background: none !important;
+            box-shadow: none !important;
+        }
+
+        .navbar-brand img {
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .navbar-nav .nav-link,
+        .navbar-buttons a {
+            color: white !important;
+        }
+
+        .navbar-caption {
+            color: white !important;
+        }
+    </style>
+    <style>
+        /* Remove any background shapes or effects in header */
+        .navbar,
+        .navbar-dropdown,
+        .navbar-fixed-top,
+        .container,
+        .navbar-collapse,
+        .opacityScroll,
+        .menu,
+        .menu2,
+        .cid-uFObdqOt7t,
+        .cid-uFObdqOt7t::before,
+        .cid-uFObdqOt7t::after {
+            background: none !important;
+            background-color: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+            backdrop-filter: none !important;
+        }
+
+            /* Kill decorative shapes */
+            .cid-uFObdqOt7t::before,
+            .cid-uFObdqOt7t::after {
+                display: none !important;
+            }
+
+        /* Keep only what you need: text + buttons + logo */
+        .navbar-brand img {
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .nav-link,
+        .navbar-buttons .btn {
+            color: white !important;
+            text-shadow: 0 0 6px rgba(0,0,0,0.6);
+        }
+    </style>
+    <style>
+        /* Remove all background overlays, shapes, and Mobirise extras */
+        .cid-uFObdqOt7t .mbr-overlay,
+        .cid-uFObdqOt7t .shape,
+        .cid-uFObdqOt7t svg,
+        .cid-uFObdqOt7t::before,
+        .cid-uFObdqOt7t::after {
+            display: none !important;
+            background: none !important;
+        }
+
+        /* Remove background from section and navbar */
+        .cid-uFObdqOt7t,
+        .cid-uFObdqOt7t nav,
+        .cid-uFObdqOt7t .container,
+        .navbar,
+        .navbar-collapse {
+            background: none !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        /* Keep logo and buttons white and visible */
+        .nav-link,
+        .navbar-buttons .btn,
+        .navbar-brand img {
+            color: white !important;
+        }
+
+        /* Optional: glow for readability on video */
+        .nav-link {
+            text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .navbar-brand img {
+            height: 100px;
+            object-fit: contain;
+        }
+    </style>
+    <style>
+        /* Fixed logo aligned better with menu */
+        .navbar-brand {
+            position: fixed !important;
+            top: 1px; /* ← lowered from 14px to 8px */
+            left: 20px;
+            z-index: 9999;
+            background: transparent !important;
+            display: flex;
+            align-items: center;
+        }
+
+            .navbar-brand img {
+                height: 64px;
+                object-fit: contain;
+            }
+
+        .navbar .container {
+            padding-left: 120px !important;
+        }
+    </style>
+
+
 </head>
 <body style=";background-color:#000;">
     <div id="black-screen-blocker" style="
@@ -263,7 +383,17 @@
     transition: opacity 1s ease-in-out;
 "></div>
 
+
     <section id="hero-custom" style="position: relative; height: 100vh; overflow: hidden;">
+        <!-- ✅ Logo moved into hero-custom section -->
+        <div id="hero-logo" style="
+    position: absolute;
+    top: 1px;
+    left: 20px;
+    z-index: 10;">
+            <img src="assets/images/with_padding.png" alt="Dento Logo" style="height: 130px; object-fit: contain;">
+        </div>
+
         <video autoplay muted loop playsinline preload="auto" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none;">
             <source src="assets/videos/bg.webm" type="video/webm" />
             <source src="assets/videos/bg.mp4" type="video/mp4" />
@@ -275,17 +405,14 @@
         </div>
     </section>
     <section class="menu menu2 cid-uFObdqOt7t" data-bs-version="5.1" id="menu-5-uFObdqOt7t" once="menu">
-        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg" style="background: none !important; box-shadow: none; border: none; padding-top: 15px;">
+
             <div class="container">
-                <div class="navbar-brand">
-                    <span class="navbar-caption-wrap" style="cursor: default;">
-                        <div class="navbar-caption text-black text-center">
-                            <div class="logo-main">Dento</div>
-                            <div class="logo-sub">Dental Billing Services</div>
-                        </div>
-                    </span>
-                </div>
-                <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+
+
+                <!-- Positioned logo ABOVE header (behind nav) -->
+
+                <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" type="button">
                     <div class="hamburger">
                         <span></span>
                         <span></span>
@@ -294,21 +421,22 @@
                     </div>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="index.html#hero-custom">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a aria-expanded="false" class="nav-link link text-black display-4" href="index.html#features019-6">About</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link link text-black display-4" href="index.html#features05-1">Services</a></li>
-                        <li class="nav-item"><a aria-expanded="false" class="nav-link link text-black display-4" href="index.html#article07-8">PracticePulse</a></li>
+                    <ul class="navbar-nav nav-dropdown ms-auto" data-app-modern-menu="true">
+                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.html#hero-custom">Home</a></li>
+                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.html#features019-6">About</a></li>
+                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.html#features05-1">Services</a></li>
+                        <li class="nav-item"><a class="nav-link link text-white display-4" href="index.html#article07-8">PracticePulse</a></li>
                     </ul>
-                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-black-outline display-4" href="index.html#contacts02-9">Contact Us</a></div>
+                    <div class="navbar-buttons mbr-section-btn">
+                        <a class="btn btn-outline-light display-4" href="index.html#contacts02-9">Contact Us</a>
+                    </div>
                 </div>
             </div>
         </nav>
     </section>
+    <!-- Static logo positioned below header -->
+
+
     <section class="features19 cid-uFOfPGbQcE" data-bs-version="5.1" id="features019-6">
         <div class="container">
             <div class="row justify-content-center">
