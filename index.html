@@ -424,6 +424,26 @@
             }
     </style>
 
+
+    <style>
+        #hero-custom .content p {
+            color: white !important;
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+        }
+    </style>
+
+
+    <style>
+        @media (max-width: 991px) {
+            .navbar-collapse .nav-link,
+            .navbar-collapse .navbar-buttons .btn {
+                color: black !important;
+                text-shadow: none !important;
+            }
+        }
+    </style>
+
+
 </head>
 <body style=";background-color:#000;">
     <div id="black-screen-blocker" style="
@@ -757,5 +777,23 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var navLinks = document.querySelectorAll('.navbar-nav .nav-link, .navbar-buttons .btn');
+            var navbarCollapse = document.querySelector('.navbar-collapse');
+
+            navLinks.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (navbarCollapse.classList.contains('show')) {
+                        var collapseInstance = bootstrap.Collapse.getInstance(navbarCollapse);
+                        if (collapseInstance) {
+                            collapseInstance.hide();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    </script>
 </body>
 </html>
