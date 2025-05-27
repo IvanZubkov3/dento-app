@@ -426,14 +426,6 @@
 
 
     <style>
-        #hero-custom .content p {
-            color: white !important;
-            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-        }
-    </style>
-
-
-    <style>
         @media (max-width: 991px) {
             .navbar-collapse .nav-link,
             .navbar-collapse .navbar-buttons .btn {
@@ -443,6 +435,27 @@
         }
     </style>
 
+
+
+    <style>
+        .navbar-toggler .hamburger span {
+            position: relative;
+            background-color: white !important;
+            display: block;
+            height: 2px;
+            margin: 4px 0;
+        }
+
+            .navbar-toggler .hamburger span::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border: 1px solid black; /* thin black border around each white line */
+            }
+    </style>
 
 </head>
 <body style=";background-color:#000;">
