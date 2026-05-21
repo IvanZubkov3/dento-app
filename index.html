@@ -570,6 +570,8 @@
         }
     </script>
 
+    <!-- Google reCAPTCHA v2 -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body style=";background-color:#000;">
     <div id="black-screen-blocker" style="
@@ -809,6 +811,9 @@
                             <div class="col-12 form-group mb-3">
 <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>
                             </div>
+                            <div class="col-12 d-flex justify-content-center mb-3">
+                                <div class="g-recaptcha" data-sitekey="6LfeyvUsAAAAAA9Ka-g6jk0TLSIb_urbhwGGIr6H"></div>
+                            </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button class="btn btn-white-outline display-7" type="submit">Send Request</button>
                             </div>
@@ -869,6 +874,11 @@
             if (form) {
                 form.addEventListener("submit", function (event) {
                     event.preventDefault();
+                    const recaptchaResponse = grecaptcha.getResponse();
+                    if (!recaptchaResponse) {
+                        alert('Please complete the reCAPTCHA verification before sending your request.');
+                        return;
+                    }
                     const name = form.querySelector('input[name="name"]').value;
                     const email = form.querySelector('input[name="email"]').value;
                     const message = form.querySelector('textarea[name="message"]').value;
@@ -893,6 +903,7 @@
                                 }, 2000);
                             }
                             form.reset();
+                            grecaptcha.reset();
                         })
                         .catch(error => {
                             console.error('Error:', error);
