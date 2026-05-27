@@ -888,8 +888,9 @@
                     })
                         .then(response => response.text())
                         .then(data => {
-                            console.log('Google Sheet updated:', data);
-                            const popup = document.getElementById("popup-success");
+    console.log('Google Sheet updated:', data);
+    gtag('event', 'conversion', {'send_to': 'AW-17109212923/ncr1CInglNcaEPu9p94_'});
+    const popup = document.getElementById("popup-success");
                             if (popup) {
                                 popup.removeAttribute("hidden");
                                 popup.removeAttribute("aria-hidden");
