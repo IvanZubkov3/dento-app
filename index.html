@@ -813,7 +813,7 @@
 <textarea class="form-control" name="message" placeholder="Message" required=""></textarea>
                             </div>
                             <div class="col-12 d-flex justify-content-center mb-3">
-                                <div class="g-recaptcha" data-sitekey="6LfeyvUsAAAAAA9Ka-g6jk0TLSIb_urbhwGGIr6H"></div>
+                                <div class="g-recaptcha" data-sitekey="6Lff-TwtAAAAAGNRq3FR5a6-NSYAisGOy9yJ1KAT"></div>
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
                                 <button class="btn btn-white-outline display-7" type="submit">Send Request</button>
@@ -885,7 +885,7 @@
                     const message = form.querySelector('textarea[name="message"]').value;
                     fetch('https://script.google.com/macros/s/AKfycbxMvk9wGvDeN0_kteSPJGbzP1Tw1opdVmyFu9M9FQposxtywT292S5MdDR54dyT5keW/exec', {
                         method: 'POST',
-                        body: new URLSearchParams({ name, email, message })
+                        body: new URLSearchParams({ name, email, message, recaptchaToken: recaptchaResponse })
                     })
                         .then(response => response.text())
                         .then(data => {
